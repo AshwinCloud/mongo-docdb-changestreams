@@ -1,0 +1,34 @@
+# MSK Broker Configuration
+message.max.bytes=5242880                    # Default 1MB, increase based on your needs
+replica.fetch.max.bytes=5242880              # Should match message.max.bytes
+replica.fetch.response.max.bytes=5242880     # Maximum size of response from replica
+max.message.bytes=5242880                    # Per-partition setting
+socket.request.max.bytes=5242880             # Maximum size of socket request
+socket.receive.buffer.bytes=5242880          # Socket receive buffer
+socket.send.buffer.bytes=5242880             # Socket send buffer
+fetch.message.max.bytes=5242880              # Maximum bytes fetched per partition
+queued.max.requests=1000                     # Increase if seeing queue full errors
+
+# Kafka Connect Worker Configuration (connect-distributed.properties)
+producer.max.request.size=5242880            # Should match message.max.bytes
+producer.buffer.memory=67108864              # 64MB, increase if needed
+producer.compression.type=snappy             # Recommended for large messages
+producer.batch.size=1000000                  # Increase for better throughput
+producer.linger.ms=100                       # Time to wait for batch to fill
+consumer.fetch.max.bytes=5242880            # Should match message.max.bytes
+consumer.max.partition.fetch.bytes=5242880  # Maximum bytes fetched per partition
+
+# MongoDB Source Connector Configuration
+max.batch.size=1000                         # Number of documents per batch
+poll.await.time.ms=1000                     # Time to wait between polls
+max.poll.size=5242880                       # Maximum size of each poll request
+batch.size.in.bytes=5242880                 # Maximum batch size in bytes
+queue.size=10000                            # Size of the queue for batching
+copy.existing.queue.size=10000              # Queue size for initial sync
+copy.existing.max.threads=2                 # Threads for initial sync
+
+# Performance Tuning Parameters
+tasks.max=3                                 # Adjust based on your partitions
+mongo.max.num.retries=3                     # Number of retry attempts
+mongo.retry.time.ms=1000                    # Time between retries
+mongo.readPreference=primaryPreferred       # Read preference for MongoDB
